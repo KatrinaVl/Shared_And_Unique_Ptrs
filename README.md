@@ -1,3 +1,3 @@
 # Task_Shared_ptr_
 
-Реализация Shared_ptr.
+Realisation of Shared_ptr.
