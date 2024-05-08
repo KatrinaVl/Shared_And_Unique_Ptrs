@@ -1,4 +1,4 @@
-# Shared_And_Unique_Ptrs
+# SharedPtr And UniquePtr
 
 Реализация упрощенной версии умных указателей: Shared_ptr и Unique_ptr.
 
