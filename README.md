@@ -1,3 +1,3 @@
-# Task_Shared_ptr_
+# Shared_And_Unique_Ptrs
 
-Realisation of Shared_ptr.
+Realisation of Shared_ptr and Unique_ptr.
