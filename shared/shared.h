@@ -5,66 +5,8 @@
 #include <cstddef>  // std::nullptr_t
 #include <utility>
 #include <memory>
-
-class BlockBase {
-public:
-    virtual ~BlockBase() = default;
-
-    size_t GetStrong() {
-        return strong_count_;
-    }
-
-    void Increment() {
-        ++strong_count_;
-    }
-
-    void Decrement() {
-        --strong_count_;
-        if (strong_count_ == 0) {
-            delete this;
-        }
-    }
-
-    size_t GetWeek() {
-        return week_count_;
-    }
-
-    size_t strong_count_ = 1;
-    size_t week_count_ = 0;
-};
-
-template <class T>
-class AllocatedByUser : public BlockBase {
-public:
-    AllocatedByUser(T* ptr) {
-        p_ = ptr;
-    }
-
-    ~AllocatedByUser() {
-        delete p_;
-    }
-
-    T* p_;
-};
-
-template <class T>
-class AllocatedByOurself : public BlockBase {
-public:
-    template <class... TArgs>
-    AllocatedByOurself(TArgs&&... args) {
-        new (&p_) T(std::forward<TArgs>(args)...);
-    }
-
-    T* Get() {
-        return (reinterpret_cast<T*>(p_));
-    }
-
-    ~AllocatedByOurself() {
-        std::destroy_at(reinterpret_cast<T*>(&p_));
-    }
-
-    alignas(T) char p_[sizeof(T)];
-};
+#include "allocated.h"
+#include "block.h"
 
 // https://en.cppreference.com/w/cpp/memory/shared_ptr
 template <typename T>
